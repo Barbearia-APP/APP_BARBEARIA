@@ -1,5 +1,9 @@
 package io.osvaldocabral.appbarbearia;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,29 +13,38 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdapter.ViewHolder> {
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.establishment_row_item, parent, false);
+        Context context = parent.getContext();
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+
+        View view = layoutInflater.inflate(R.layout.establishment_row_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.imageView_establishment_row_item.setImageResource(R.drawable.ic_launcher_background);
+        Establishment establishment = DataSingleton.getInstance().listEstablishment.get(position);
 
-        holder.textView_name_establishment_row_item.setText("NOSTRINKS CABELEREIRO");
-        holder.textView_address_establishment_row_item.setText("Rua do Barbeiro, 1345");
-        holder.textView_phone_establishment_row_item.setText("(41) 9 8888-8888");
+        File file = new File(establishment.getCoverPicturePath());
+        holder.imageView_establishment_row_item.setImageURI(Uri.fromFile(file));
+        holder.textView_name_establishment_row_item.setText(establishment.getName());
+        holder.textView_address_establishment_row_item.setText(establishment.getAddress());
+        holder.textView_phone_establishment_row_item.setText(establishment.getPhone());
     }
 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return DataSingleton.getInstance().listEstablishment.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

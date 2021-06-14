@@ -15,6 +15,7 @@ public class ListEstabelecimento extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_estabelecimento);
+        setTitle("Todos Estabelecimentos");
 
         adapter = new EstablishmentAdapter();
 
