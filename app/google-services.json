@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "254995209935",
+    "project_id": "appbarbearia-18f35",
+    "storage_bucket": "appbarbearia-18f35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254995209935:android:2a8ac2bd18f9b3b1e5a1ba",
+        "android_client_info": {
+          "package_name": "io.osvaldocabral.appbarbearia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254995209935-q926vou0ja4bqbv8k3k4tvdfdp5rrrph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEY1gyo9LnjnkADc-K3F6tWk0s1ZAlqHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254995209935-q926vou0ja4bqbv8k3k4tvdfdp5rrrph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
