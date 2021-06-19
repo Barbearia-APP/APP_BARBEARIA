@@ -4,6 +4,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,6 +21,7 @@ public class DataSingleton {
     public ArrayList<Establishment> listEstablishment = new ArrayList<>();
     public FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     public Task<QuerySnapshot> taskFirestore;
+    public FirebaseUser user;
 
 
     public DataSingleton() {

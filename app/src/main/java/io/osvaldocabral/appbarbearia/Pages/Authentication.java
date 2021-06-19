@@ -1,14 +1,13 @@
-package io.osvaldocabral.appbarbearia;
+package io.osvaldocabral.appbarbearia.Pages;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,14 +22,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import io.osvaldocabral.appbarbearia.AdminNavigation;
+import io.osvaldocabral.appbarbearia.DataSingleton;
+import io.osvaldocabral.appbarbearia.R;
+import io.osvaldocabral.appbarbearia.User_or_Factory;
+
 public class Authentication extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     // [END declare_auth]
-
     private GoogleSignInClient mGoogleSignInClient;
-
     private static final String TAG = "GoogleActivity";
 
     @Override
@@ -48,13 +50,6 @@ public class Authentication extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-    }
 
 
     public void signIn(View view) {
@@ -74,6 +69,7 @@ public class Authentication extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
+
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
@@ -90,15 +86,29 @@ public class Authentication extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser userAuth = mAuth.getCurrentUser();
+                            Toast.makeText(Authentication.this,DataSingleton.getInstance().user.getDisplayName(),Toast.LENGTH_LONG).show();
 
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(Authentication.this,"Erro ao entrar com o Google",Toast.LENGTH_LONG).show();
 
                         }
                     }
                 });
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser!=null){
+            DataSingleton.getInstance().user = currentUser;
+            Intent intent = new Intent(Authentication.this, AdminNavigation.class);
+            this.startActivity(intent);
+        }
+
     }
 
 

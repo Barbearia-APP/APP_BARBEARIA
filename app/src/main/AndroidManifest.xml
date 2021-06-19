@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppBarbearia">
-        <activity android:name=".Authentication"></activity>
+        <activity
+            android:name=".AdminNavigation"
+            android:label="@string/title_activity_admin_navigation"></activity>
+        <activity android:name=".Pages.Authentication" />
         <activity android:name=".Pages.ListEstabelecimento" />
         <activity android:name=".User_or_Factory">
             <intent-filter>
@@ -31,6 +34,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
         </provider>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
