@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".User_or_Factory">
+
+    <TextView
+        android:id="@+id/user_or_factory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="#00FFFFFF"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Escolha qual opção deseja entrar"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <Button
+        android:id="@+id/buttonUser"
+        android:layout_width="192dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="#F44336"
+        android:onClick="onClickButtonClient"
+        android:text="Cliente"
+        app:cornerRadius="30dp"
+        app:icon="@drawable/fui_ic_anonymous_white_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/user_or_factory"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/user_or_factory"
+        app:layout_constraintTop_toBottomOf="@+id/user_or_factory" />
+
+    <Button
+        android:id="@+id/buttonFactory"
+        android:layout_width="192dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="#E48900"
+        android:onClick="onClickButtonClient"
+        android:text="Empresa"
+        app:cornerRadius="30dp"
+        app:icon="@drawable/fui_ic_anonymous_white_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonUser"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/buttonUser"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUser" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/barbearialogin"
+        tools:srcCompat="@drawable/barbearialogin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

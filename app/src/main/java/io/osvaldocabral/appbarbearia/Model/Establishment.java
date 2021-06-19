@@ -1,4 +1,4 @@
-package io.osvaldocabral.appbarbearia;
+package io.osvaldocabral.appbarbearia.Model;
 
 public class Establishment {
 
