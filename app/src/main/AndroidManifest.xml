@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppBarbearia">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ListEstabelecimento">
+        <activity android:name=".ListEstabelecimento"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".EstablishmentDetail">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,15 +23,14 @@
         </activity>
 
         <provider
-            android:authorities="io.osvaldocabral.appbarbearia.fileProvider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="io.osvaldocabral.appbarbearia.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/fileprovider"></meta-data>
+                android:resource="@xml/fileprovider" />
         </provider>
-
     </application>
 
 </manifest>

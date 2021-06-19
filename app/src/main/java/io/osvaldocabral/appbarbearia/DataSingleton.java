@@ -35,7 +35,6 @@ public class DataSingleton {
     }
 
 
-
     public static DataSingleton instance = new DataSingleton();
 
 
