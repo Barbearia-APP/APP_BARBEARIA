@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "254995209935-bdg7skdqi2nsvk0tubt7jc5bh0dht7k3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.osvaldocabral.appbarbearia",
+            "certificate_hash": "eb9c84264548257d6a4410c3f2fddbd1ed193890"
+          }
+        },
+        {
           "client_id": "254995209935-q926vou0ja4bqbv8k3k4tvdfdp5rrrph.apps.googleusercontent.com",
           "client_type": 3
         }
