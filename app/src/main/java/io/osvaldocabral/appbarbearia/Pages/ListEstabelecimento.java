@@ -1,17 +1,21 @@
-package io.osvaldocabral.appbarbearia;
+package io.osvaldocabral.appbarbearia.Pages;
+
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import io.osvaldocabral.appbarbearia.Components.EstablishmentAdapter;
+import io.osvaldocabral.appbarbearia.DataSingleton;
+import io.osvaldocabral.appbarbearia.Model.Establishment;
+import io.osvaldocabral.appbarbearia.R;
 
 public class ListEstabelecimento extends AppCompatActivity {
 

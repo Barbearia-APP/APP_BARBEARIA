@@ -1,8 +1,6 @@
-package io.osvaldocabral.appbarbearia;
+package io.osvaldocabral.appbarbearia.Components;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+import io.osvaldocabral.appbarbearia.DataSingleton;
+import io.osvaldocabral.appbarbearia.Model.Establishment;
+import io.osvaldocabral.appbarbearia.R;
 
 public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdapter.ViewHolder> {
 
