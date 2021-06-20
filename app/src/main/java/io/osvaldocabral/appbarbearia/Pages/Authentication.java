@@ -25,94 +25,45 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import io.osvaldocabral.appbarbearia.AdminNavigation;
 import io.osvaldocabral.appbarbearia.DataSingleton;
 import io.osvaldocabral.appbarbearia.R;
+import io.osvaldocabral.appbarbearia.Services.ServiceGoogleAuth;
 import io.osvaldocabral.appbarbearia.User_or_Factory;
 
 public class Authentication extends AppCompatActivity {
 
-    private static final int RC_SIGN_IN = 9001;
-    private FirebaseAuth mAuth;
-    // [END declare_auth]
-    private GoogleSignInClient mGoogleSignInClient;
-    private static final String TAG = "GoogleActivity";
-
-
+    private ServiceGoogleAuth serviceGoogleAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.authentication);
         String teste = getIntent().getStringExtra("typeuser");
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("254995209935-q926vou0ja4bqbv8k3k4tvdfdp5rrrph.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        serviceGoogleAuth = ServiceGoogleAuth.getInstance(this);
 
-        mAuth = FirebaseAuth.getInstance();
     }
 
 
 
     public void signIn(View view) {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        Intent signInIntent = serviceGoogleAuth.mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, serviceGoogleAuth.RC_SIGN_IN);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account.getIdToken());
-
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
-            }
-        }
+        boolean Auth = serviceGoogleAuth.SignIn(requestCode,this,data);
+        Intent intent = new Intent(Authentication.this, AdminNavigation.class);
+        this.startActivity(intent);
     }
 
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            DataSingleton.getInstance().user = mAuth.getCurrentUser();
-
-
-                        } else {
-                            Toast.makeText(Authentication.this,"Erro ao entrar com o Google",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser!=null){
-            DataSingleton.getInstance().user = currentUser;
-            Intent intent = new Intent(Authentication.this, AdminNavigation.class);
-            this.startActivity(intent);
-        }
-    }
 
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser!=null){
-            DataSingleton.getInstance().user = currentUser;
+        if(serviceGoogleAuth.GetUser()!=null){
+            DataSingleton.getInstance().user = serviceGoogleAuth.GetUser();
             Intent intent = new Intent(Authentication.this, AdminNavigation.class);
             this.startActivity(intent);
         }

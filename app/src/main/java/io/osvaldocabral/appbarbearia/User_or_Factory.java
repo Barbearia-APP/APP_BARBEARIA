@@ -12,11 +12,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import io.osvaldocabral.appbarbearia.Enum.TypesUser;
 import io.osvaldocabral.appbarbearia.Pages.Authentication;
+import io.osvaldocabral.appbarbearia.Services.ServiceGoogleAuth;
 
 public class User_or_Factory extends AppCompatActivity {
 
     Button buttonClient;
     Button buttonFactory;
+    ServiceGoogleAuth serviceGoogleAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,7 @@ public class User_or_Factory extends AppCompatActivity {
         setContentView(R.layout.activity_user_or_factory);
         buttonClient = findViewById(R.id.buttonUser);
         buttonFactory = findViewById(R.id.buttonFactory);
+        serviceGoogleAuth = ServiceGoogleAuth.getInstance(this);
     }
 
     public void onClickButtonClient(View view){
@@ -43,10 +46,8 @@ public class User_or_Factory extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser!=null){
-            DataSingleton.getInstance().user = currentUser;
+        if(serviceGoogleAuth.GetUser()!=null){
+            DataSingleton.getInstance().user = serviceGoogleAuth.GetUser();
             Intent intent = new Intent(User_or_Factory.this,AdminNavigation.class);
             this.startActivity(intent);
         }
