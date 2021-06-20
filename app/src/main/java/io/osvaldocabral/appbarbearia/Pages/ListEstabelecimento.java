@@ -1,6 +1,8 @@
 package io.osvaldocabral.appbarbearia.Pages;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import io.osvaldocabral.appbarbearia.Components.EstablishmentAdapter;
 import io.osvaldocabral.appbarbearia.DataSingleton;
+import io.osvaldocabral.appbarbearia.MainActivity;
 import io.osvaldocabral.appbarbearia.Model.Establishment;
 import io.osvaldocabral.appbarbearia.R;
 
@@ -39,6 +42,14 @@ public class ListEstabelecimento extends AppCompatActivity {
         querySnapshotTask = DataSingleton.getInstance().taskFirestore;
         querySnapshotTask.addOnCompleteListener(retrieveAndFillData());
 
+        adapter.setClickListenner(new EstablishmentAdapter.ClickListenner() {
+            @Override
+            public void onItemClick(int position, View view) {
+                Intent intent = new Intent(getApplicationContext(), EstablishmentDetail.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -54,7 +65,9 @@ public class ListEstabelecimento extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     DataSingleton.getInstance().listEstablishment.add(
-                            new Establishment((String) document.getData().get("name"),
+                            new Establishment(
+                                    (String) document.getId(),
+                                    (String) document.getData().get("name"),
                                     (String) document.getData().get("address"),
                                     (String) document.getData().get("phone"),
                                     "/storage/emulated/0/Android/data/io.osvaldocabral.validadordepresenca/files/Pictures/pic_202106132046382536392854497873818.jpg"

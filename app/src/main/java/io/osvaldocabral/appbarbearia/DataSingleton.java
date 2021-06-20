@@ -20,12 +20,12 @@ public class DataSingleton {
 
     public ArrayList<Establishment> listEstablishment = new ArrayList<>();
     public FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    public Task<QuerySnapshot> taskFirestore;
+    public Task<QuerySnapshot> taskFirestore = firestore.collection("establishments").get();
     public FirebaseUser user;
+    public Establishment currentEstablishment;
 
 
     public DataSingleton() {
-        taskFirestore = firestore.collection("establishments").get();
     }
 
 

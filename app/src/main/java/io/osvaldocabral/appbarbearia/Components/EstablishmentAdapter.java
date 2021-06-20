@@ -19,6 +19,20 @@ import io.osvaldocabral.appbarbearia.R;
 
 public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdapter.ViewHolder> {
 
+
+    private static ClickListenner clickListenner;
+
+
+    public interface ClickListenner {
+        void onItemClick(int position, View view);
+    }
+
+
+    public void setClickListenner(ClickListenner clickListenner) {
+        EstablishmentAdapter.clickListenner = clickListenner;
+    }
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -28,6 +42,7 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
         View view = layoutInflater.inflate(R.layout.establishment_row_item, parent, false);
         return new ViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -46,6 +61,7 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
         return DataSingleton.getInstance().listEstablishment.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView_establishment_row_item;
@@ -60,6 +76,16 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
             textView_name_establishment_row_item = itemView.findViewById(R.id.textView_name_establishment_row_item);
             textView_address_establishment_row_item = itemView.findViewById(R.id.textView_address_establishment_row_item);
             textView_phone_establishment_row_item = itemView.findViewById(R.id.textView_phone_establishment_row_item);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(clickListenner == null)
+                        return;
+
+                    clickListenner.onItemClick(getAdapterPosition(), v);
+                }
+            });
         }
     }
 }

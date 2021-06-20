@@ -2,6 +2,7 @@ package io.osvaldocabral.appbarbearia.Model;
 
 public class Establishment {
 
+    String id;
     String name;
     String address;
     String phone;
@@ -10,11 +11,27 @@ public class Establishment {
     public Establishment() {
     }
 
+    public Establishment(String id, String name, String address, String phone, String coverPicturePath) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.coverPicturePath = coverPicturePath;
+    }
+
     public Establishment(String name, String address, String phone, String coverPicturePath) {
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.coverPicturePath = coverPicturePath;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

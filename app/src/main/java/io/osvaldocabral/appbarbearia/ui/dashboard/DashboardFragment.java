@@ -1,16 +1,13 @@
 package io.osvaldocabral.appbarbearia.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,30 +19,38 @@ import com.google.firebase.firestore.QuerySnapshot;
 import io.osvaldocabral.appbarbearia.Components.EstablishmentAdapter;
 import io.osvaldocabral.appbarbearia.DataSingleton;
 import io.osvaldocabral.appbarbearia.Model.Establishment;
+import io.osvaldocabral.appbarbearia.Pages.EstablishmentDetail;
 import io.osvaldocabral.appbarbearia.R;
-import io.osvaldocabral.appbarbearia.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
 
     RecyclerView recyclerView;
-    EstablishmentAdapter adapter;
+    EstablishmentAdapter adapter = new EstablishmentAdapter();
     Task<QuerySnapshot> querySnapshotTask;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        adapter = new EstablishmentAdapter();
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        
+        adapter.setClickListenner(new EstablishmentAdapter.ClickListenner() {
+            @Override
+            public void onItemClick(int position, View view) {
+                DataSingleton.getInstance().currentEstablishment = DataSingleton.getInstance().listEstablishment.get(position);
+                Intent intent = new Intent(getContext(), EstablishmentDetail.class);
+                startActivity(intent);
+            }
+        });
 
         querySnapshotTask = DataSingleton.getInstance().taskFirestore;
         querySnapshotTask.addOnCompleteListener(retrieveAndFillData());
+
         return view;
     }
+
 
     private OnCompleteListener<QuerySnapshot> retrieveAndFillData() {
         return new OnCompleteListener<QuerySnapshot>() {
@@ -53,10 +58,12 @@ public class DashboardFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     DataSingleton.getInstance().listEstablishment.add(
-                            new Establishment((String) document.getData().get("name"),
+                            new Establishment(
+                                    (String) document.getId(),
+                                    (String) document.getData().get("name"),
                                     (String) document.getData().get("address"),
                                     (String) document.getData().get("phone"),
-                                    "/storage/emulated/0/Android/data/io.osvaldocabral.validadordepresenca/files/Pictures/pic_202106132046382536392854497873818.jpg"
+                                    ""
                             )
                     );
                     adapter.notifyDataSetChanged();
@@ -65,9 +72,10 @@ public class DashboardFragment extends Fragment {
         };
     }
 
+
     @Override
     public void onDestroyView() {
+        adapter.notifyDataSetChanged();
         super.onDestroyView();
-
     }
 }
