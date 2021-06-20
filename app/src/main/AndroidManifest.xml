@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.osvaldocabral.appbarbearia">
 
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -14,11 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppBarbearia">
+        <activity android:name=".Pages.CreateDateTime"></activity>
+        <activity android:name=".Pages.CreateService" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Pages.EstablishmentDetail"/>
+        <activity android:name=".Pages.EstablishmentDetail" />
         <activity
             android:name=".AdminNavigation"
-            android:label="@string/title_activity_admin_navigation"/>
+            android:label="@string/title_activity_admin_navigation" />
         <activity android:name=".Pages.Authentication" />
         <activity android:name=".Pages.ListEstabelecimento" />
         <activity android:name=".User_or_Factory">
@@ -28,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -40,11 +39,9 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 
 </manifest>
