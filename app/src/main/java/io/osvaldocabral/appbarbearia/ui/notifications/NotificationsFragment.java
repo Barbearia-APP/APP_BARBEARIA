@@ -1,17 +1,20 @@
 package io.osvaldocabral.appbarbearia.ui.notifications;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import io.osvaldocabral.appbarbearia.DataSingleton;
+import io.osvaldocabral.appbarbearia.Pages.CreateService;
 import io.osvaldocabral.appbarbearia.R;
 import io.osvaldocabral.appbarbearia.databinding.FragmentNotificationsBinding;
 
@@ -19,23 +22,29 @@ public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private FragmentNotificationsBinding binding;
-
+    private Button buttonService;
+    private Button buttonHorario;
+    private ImageView imageView;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        buttonHorario = view.findViewById(R.id.buttonHorario);
+        buttonService = view.findViewById(R.id.buttonService);
+        buttonService.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onClick(View v)
+            {
+
+                    Intent intent = new Intent(getActivity(), CreateService.class);
+                    startActivity(intent);
+
             }
         });
-        return root;
+
+        return view;
     }
 
     @Override

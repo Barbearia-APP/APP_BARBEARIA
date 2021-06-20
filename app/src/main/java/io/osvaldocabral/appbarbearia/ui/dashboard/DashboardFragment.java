@@ -44,6 +44,7 @@ public class DashboardFragment extends Fragment {
 
         querySnapshotTask = DataSingleton.getInstance().taskFirestore;
         querySnapshotTask.addOnCompleteListener(retrieveAndFillData());
+
         return view;
     }
 
