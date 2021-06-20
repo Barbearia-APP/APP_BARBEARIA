@@ -35,6 +35,7 @@ public class Authentication extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private static final String TAG = "GoogleActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,7 @@ public class Authentication extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
 
@@ -86,15 +88,21 @@ public class Authentication extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser userAuth = mAuth.getCurrentUser();
-                            Toast.makeText(Authentication.this,DataSingleton.getInstance().user.getDisplayName(),Toast.LENGTH_LONG).show();
+                            DataSingleton.getInstance().user = mAuth.getCurrentUser();
+
 
                         } else {
                             Toast.makeText(Authentication.this,"Erro ao entrar com o Google",Toast.LENGTH_LONG).show();
-
                         }
                     }
                 });
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser!=null){
+            DataSingleton.getInstance().user = currentUser;
+            Intent intent = new Intent(Authentication.this, AdminNavigation.class);
+            this.startActivity(intent);
+        }
     }
 
 
