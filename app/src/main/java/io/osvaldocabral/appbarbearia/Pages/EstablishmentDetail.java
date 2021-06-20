@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import io.osvaldocabral.appbarbearia.Model.Establishment;
+import io.osvaldocabral.appbarbearia.DataSingleton;
 import io.osvaldocabral.appbarbearia.R;
 
 
@@ -35,7 +36,8 @@ public class EstablishmentDetail extends AppCompatActivity {
         String address = editTextAddress.getText().toString();
         String phone = editTextPhone.getText().toString();
 
-        new Establishment(name, address, phone, "");
+        Establishment establishment = new Establishment(name, address, phone, "");
+        DataSingleton.getInstance().firestore.collection("establishments").add(establishment);
     }
 
 

@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.osvaldocabral.appbarbearia">
 
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -13,19 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppBarbearia">
         <activity android:name=".MainActivity" />
-        <activity android:name=".Pages.EstablishmentDetail"/>
+        <activity android:name=".User_or_Factory"/>
         <activity
             android:name=".AdminNavigation"
             android:label="@string/title_activity_admin_navigation"/>
         <activity android:name=".Pages.Authentication" />
         <activity android:name=".Pages.ListEstabelecimento" />
-        <activity android:name=".User_or_Factory">
+        <activity android:name=".Pages.EstablishmentDetail">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -37,9 +40,11 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
 
 </manifest>
