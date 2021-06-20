@@ -14,7 +14,7 @@
         android:theme="@style/Theme.AppBarbearia">
         <activity android:name=".Pages.ListEstabelecimento"/>
         <activity android:name=".MainActivity" />
-        <activity android:name=".EstablishmentDetail"/>
+        <activity android:name=".Pages.EstablishmentDetail"/>
         <activity android:name=".Authentication"/>
         <activity android:name=".User_or_Factory">
             <intent-filter>
