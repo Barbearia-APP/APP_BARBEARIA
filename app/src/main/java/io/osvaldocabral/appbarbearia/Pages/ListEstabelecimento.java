@@ -60,7 +60,6 @@ public class ListEstabelecimento extends AppCompatActivity {
                                     "/storage/emulated/0/Android/data/io.osvaldocabral.validadordepresenca/files/Pictures/pic_202106132046382536392854497873818.jpg"
                             )
                     );
-
                     adapter.notifyDataSetChanged();
                 }
             }

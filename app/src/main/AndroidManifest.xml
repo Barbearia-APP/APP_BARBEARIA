@@ -15,13 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppBarbearia">
         <activity android:name=".MainActivity" />
-        <activity android:name=".User_or_Factory"/>
+        <activity android:name=".Pages.EstablishmentDetail"/>
         <activity
             android:name=".AdminNavigation"
             android:label="@string/title_activity_admin_navigation"/>
         <activity android:name=".Pages.Authentication" />
         <activity android:name=".Pages.ListEstabelecimento" />
-        <activity android:name=".Pages.EstablishmentDetail">
+        <activity android:name=".User_or_Factory">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

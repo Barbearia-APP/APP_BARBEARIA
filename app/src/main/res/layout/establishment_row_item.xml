@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:backgroundTint="#FF5722"
         card_view:cardBackgroundColor="@color/black_default"
         card_view:cardCornerRadius="6dp">
 

@@ -11,36 +11,63 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import io.osvaldocabral.appbarbearia.Components.EstablishmentAdapter;
+import io.osvaldocabral.appbarbearia.DataSingleton;
+import io.osvaldocabral.appbarbearia.Model.Establishment;
 import io.osvaldocabral.appbarbearia.R;
 import io.osvaldocabral.appbarbearia.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
-    private FragmentDashboardBinding binding;
+    RecyclerView recyclerView;
+    EstablishmentAdapter adapter;
+    Task<QuerySnapshot> querySnapshotTask;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        adapter = new EstablishmentAdapter();
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        
+
+        querySnapshotTask = DataSingleton.getInstance().taskFirestore;
+        querySnapshotTask.addOnCompleteListener(retrieveAndFillData());
+        return view;
+    }
+
+    private OnCompleteListener<QuerySnapshot> retrieveAndFillData() {
+        return new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    DataSingleton.getInstance().listEstablishment.add(
+                            new Establishment((String) document.getData().get("name"),
+                                    (String) document.getData().get("address"),
+                                    (String) document.getData().get("phone"),
+                                    "/storage/emulated/0/Android/data/io.osvaldocabral.validadordepresenca/files/Pictures/pic_202106132046382536392854497873818.jpg"
+                            )
+                    );
+                    adapter.notifyDataSetChanged();
+                }
             }
-        });
-        return root;
+        };
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+
     }
 }
