@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import io.osvaldocabral.appbarbearia.DataSingleton;
+import io.osvaldocabral.appbarbearia.Pages.CreateDateTime;
 import io.osvaldocabral.appbarbearia.Pages.CreateService;
 import io.osvaldocabral.appbarbearia.R;
 import io.osvaldocabral.appbarbearia.databinding.FragmentNotificationsBinding;
@@ -40,6 +41,18 @@ public class NotificationsFragment extends Fragment {
 
                     Intent intent = new Intent(getActivity(), CreateService.class);
                     startActivity(intent);
+
+            }
+        });
+
+        buttonHorario.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent intent = new Intent(getActivity(), CreateDateTime.class);
+                startActivity(intent);
 
             }
         });

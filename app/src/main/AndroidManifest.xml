@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppBarbearia">
-        <activity android:name=".Pages.CreateService"></activity>
+        <activity android:name=".Pages.CreateDateTime"></activity>
+        <activity android:name=".Pages.CreateService" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Pages.EstablishmentDetail" />
         <activity

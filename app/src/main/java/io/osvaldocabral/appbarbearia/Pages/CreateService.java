@@ -43,9 +43,9 @@ public class CreateService extends AppCompatActivity {
         Map<String, Object> data = new HashMap<>();
         data.put("name",serviceBarber.getName());
         data.put("value",serviceBarber.getValue());
-        data.put("uuid",serviceBarber.getUuid());
+        data.put("id_user",serviceBarber.getId_user());
         FirebaseFirestore db = DataSingleton.getInstance().firestore;
-        db.collection("ServiceBarber").document(serviceBarber.getId_user())
+        db.collection("ServiceBarber").document(serviceBarber.getUuid())
                 .set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
