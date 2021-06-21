@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 import io.osvaldocabral.appbarbearia.Components.EstablishmentAdapter;
 import io.osvaldocabral.appbarbearia.DataSingleton;
 import io.osvaldocabral.appbarbearia.Model.Establishment;
@@ -26,7 +28,6 @@ public class DashboardFragment extends Fragment {
 
     RecyclerView recyclerView;
     EstablishmentAdapter adapter = new EstablishmentAdapter();
-    Task<QuerySnapshot> querySnapshotTask;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,8 +46,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        querySnapshotTask = DataSingleton.getInstance().taskFirestore;
-        querySnapshotTask.addOnCompleteListener(retrieveAndFillData());
+        DataSingleton.getInstance().taskFirestore.addOnCompleteListener(retrieveAndFillData());
 
         return view;
     }
@@ -56,6 +56,7 @@ public class DashboardFragment extends Fragment {
         return new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                DataSingleton.getInstance().listEstablishment.clear();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     DataSingleton.getInstance().listEstablishment.add(
                             new Establishment(
@@ -66,8 +67,8 @@ public class DashboardFragment extends Fragment {
                                     ""
                             )
                     );
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
             }
         };
     }
@@ -77,5 +78,12 @@ public class DashboardFragment extends Fragment {
     public void onDestroyView() {
         adapter.notifyDataSetChanged();
         super.onDestroyView();
+    }
+
+
+    @Override
+    public void onResume() {
+        DataSingleton.getInstance().taskFirestore.addOnCompleteListener(retrieveAndFillData());
+        super.onResume();
     }
 }
