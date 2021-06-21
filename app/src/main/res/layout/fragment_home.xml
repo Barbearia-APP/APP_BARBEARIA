@@ -71,7 +71,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:onClick="saveEstablishmentClickedMain"
         android:text="Salvar"
         app:layout_constraintEnd_toEndOf="@+id/editTextPhoneFragment"
         app:layout_constraintStart_toStartOf="@+id/textView3Fragment"

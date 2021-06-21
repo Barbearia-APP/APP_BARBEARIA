@@ -47,13 +47,25 @@ public class HomeFragment extends Fragment {
         editTextAddress = view.findViewById(R.id.editTextAddressFragment);
         editTextPhone = view.findViewById(R.id.editTextPhoneFragment);
 
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveEstablishmentClickedMain();
+            }
+        });
         return view;
     }
 
 
-    public void saveEstablishmentClickedMain(View view) {
+    public void saveEstablishmentClickedMain() {
         CollectionReference collection = DataSingleton.getInstance().firestore.collection("establishments");
         collection.add(filEstablishment());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle( "Salvo com sucesso." );
+        builder.setPositiveButton(android.R.string.ok, null);
+        builder.show();
+
         clearFields();
     }
 
