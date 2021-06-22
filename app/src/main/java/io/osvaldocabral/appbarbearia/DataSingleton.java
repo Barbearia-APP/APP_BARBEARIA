@@ -13,6 +13,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import io.osvaldocabral.appbarbearia.Components.EstablishmentAdapter;
 import io.osvaldocabral.appbarbearia.Model.Establishment;
 
 public class DataSingleton {
@@ -23,6 +24,7 @@ public class DataSingleton {
     public Task<QuerySnapshot> taskFirestore = firestore.collection("establishments").get();
     public FirebaseUser user;
     public Establishment currentEstablishment;
+    public EstablishmentAdapter establishmentAdapter;
 
 
     public DataSingleton() {

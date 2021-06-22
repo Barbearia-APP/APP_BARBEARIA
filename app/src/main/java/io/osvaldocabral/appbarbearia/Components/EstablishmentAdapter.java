@@ -48,8 +48,6 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Establishment establishment = DataSingleton.getInstance().listEstablishment.get(position);
 
-        File file = new File(establishment.getCoverPicturePath());
-        holder.imageView_establishment_row_item.setImageURI(Uri.fromFile(file));
         holder.textView_name_establishment_row_item.setText(establishment.getName());
         holder.textView_address_establishment_row_item.setText(establishment.getAddress());
         holder.textView_phone_establishment_row_item.setText(establishment.getPhone());
@@ -64,7 +62,6 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView_establishment_row_item;
         TextView textView_name_establishment_row_item,
                 textView_address_establishment_row_item,
                 textView_phone_establishment_row_item;
@@ -72,7 +69,6 @@ public class EstablishmentAdapter extends RecyclerView.Adapter<EstablishmentAdap
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView_establishment_row_item = itemView.findViewById(R.id.imageView_establishment_row_item);
             textView_name_establishment_row_item = itemView.findViewById(R.id.textView_name_establishment_row_item);
             textView_address_establishment_row_item = itemView.findViewById(R.id.textView_address_establishment_row_item);
             textView_phone_establishment_row_item = itemView.findViewById(R.id.textView_phone_establishment_row_item);

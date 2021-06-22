@@ -39,6 +39,7 @@ public class CreateDateTime extends AppCompatActivity {
     TextView InputDateTime;
     TextView InputTime;
     Spinner spinnerServices;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,13 +64,12 @@ public class CreateDateTime extends AppCompatActivity {
                         } else {
                             Log.d("testando", "Error getting documents: ", task.getException());
                         }
+
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerServices.setAdapter(arrayAdapter);
                     }
                 });
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
-        spinnerServices.setAdapter(arrayAdapter);
-
-
     }
 
     public void SaveDateTime(View view){

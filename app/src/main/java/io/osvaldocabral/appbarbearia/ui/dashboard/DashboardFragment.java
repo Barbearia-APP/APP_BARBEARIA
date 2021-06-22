@@ -2,6 +2,7 @@ package io.osvaldocabral.appbarbearia.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,17 +28,17 @@ import io.osvaldocabral.appbarbearia.R;
 public class DashboardFragment extends Fragment {
 
     RecyclerView recyclerView;
-    EstablishmentAdapter adapter = new EstablishmentAdapter();
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
+        DataSingleton.getInstance().establishmentAdapter = new EstablishmentAdapter();
+
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(DataSingleton.getInstance().establishmentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        adapter.setClickListenner(new EstablishmentAdapter.ClickListenner() {
+        DataSingleton.getInstance().establishmentAdapter.setClickListenner(new EstablishmentAdapter.ClickListenner() {
             @Override
             public void onItemClick(int position, View view) {
                 DataSingleton.getInstance().currentEstablishment = DataSingleton.getInstance().listEstablishment.get(position);
@@ -68,7 +69,7 @@ public class DashboardFragment extends Fragment {
                             )
                     );
                 }
-                adapter.notifyDataSetChanged();
+                DataSingleton.getInstance().establishmentAdapter.notifyDataSetChanged();
             }
         };
     }
@@ -76,7 +77,7 @@ public class DashboardFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        adapter.notifyDataSetChanged();
+        DataSingleton.getInstance().establishmentAdapter.notifyDataSetChanged();
         super.onDestroyView();
     }
 
